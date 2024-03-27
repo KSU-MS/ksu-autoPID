@@ -1,7 +1,7 @@
 #ifndef AUTOPID_H
 #define AUTOPID_H
-#include <Arduino.h>
-
+#include <stdint.h>
+#include <cmath>
 class AutoPID {
 
   public:
@@ -22,10 +22,10 @@ class AutoPID {
     bool atSetPoint(double threshold);
     // Runs PID calculations when needed. Should be called repeatedly in loop.
     // Automatically reads input and sets output via pointers
-    void run();
+    void run(unsigned long systime);
     // Stops PID functionality, output sets to 
-    void stop();
-    void reset();
+    void stop(unsigned long systime);
+    void reset(unsigned long systime);
     bool isStopped();
 
     double getIntegral();
@@ -51,7 +51,7 @@ class AutoPIDRelay : public AutoPID {
       _pulseWidth = pulseWidth;
     };
 
-    void run();
+    void run(unsigned long systime);
 
     double getPulseValue();
 
